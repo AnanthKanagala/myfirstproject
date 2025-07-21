@@ -28,7 +28,7 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 bat '''
-                    powershell -Command "$Env:TF_PATH init"
+                    powershell -Command "& $Env:TF_PATH init"
                 '''
             }
         }
@@ -36,7 +36,7 @@ pipeline {
         stage('Terraform Validate') {
             steps {
                 bat '''
-                    powershell -Command "$Env:TF_PATH validate"
+                    powershell -Command "& $Env:TF_PATH validate"
                 '''
             }
         }
@@ -44,7 +44,7 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 bat '''
-                    powershell -Command "$Env:TF_PATH plan"
+                    powershell -Command "& $Env:TF_PATH plan"
                 '''
             }
         }
@@ -55,7 +55,7 @@ pipeline {
             }
             steps {
                 bat '''
-                    powershell -Command "$Env:TF_PATH apply -auto-approve"
+                    powershell -Command "& $Env:TF_PATH apply -auto-approve"
                 '''
             }
         }
