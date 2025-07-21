@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         TF_VERSION = '1.6.0'
+        TF_PATH = 'C:\\Terraform\\terraform.exe'
     }
 
     stages {
@@ -26,19 +27,25 @@ pipeline {
         
         stage('Terraform Init') {
             steps {
-                sh 'terraform init'
+                bat '''
+                    powershell -Command "$Env:TF_PATH init"
+                '''
             }
         }
 
         stage('Terraform Validate') {
             steps {
-                sh 'terraform validate'
+                bat '''
+                    powershell -Command "$Env:TF_PATH validate"
+                '''
             }
         }
 
         stage('Terraform Plan') {
             steps {
-                sh 'terraform plan'
+                bat '''
+                    powershell -Command "$Env:TF_PATH plan"
+                '''
             }
         }
 
@@ -47,7 +54,9 @@ pipeline {
                 branch 'main'
             }
             steps {
-                sh 'terraform apply -auto-approve'
+                bat '''
+                    powershell -Command "$Env:TF_PATH apply -auto-approve"
+                '''
             }
         }
     }
