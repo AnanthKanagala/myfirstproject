@@ -15,13 +15,13 @@ pipeline {
         stage('Install Terraform') {
             steps {
                 bat '''
-                    wget https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip
-                    unzip terraform_${TF_VERSION}_linux_amd64.zip
-                    sudo mv terraform /usr/local/bin/
+                    powershell -Command "Invoke-WebRequest -Uri 'https://releases.hashicorp.com/terraform/1.6.0/terraform_1.6.0_windows_amd64.zip' -OutFile 'terraform.zip'"
+                    powershell -Command "Expand-Archive -Path 'terraform.zip' -DestinationPath '.'"
+                    move terraform.exe C:\\Terraform\\terraform.exe
                 '''
             }
         }
-
+        
         stage('Terraform Init') {
             steps {
                 sh 'terraform init'
