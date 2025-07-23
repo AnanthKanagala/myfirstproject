@@ -4,6 +4,7 @@ pipeline {
     environment {
         TF_VERSION = '1.6.0'
         TF_PATH = 'C:\\Terraform\\terraform.exe'
+        TF_FILE = 'C:\\Terraform\\InstID.tf"
     }
 
     stages {
@@ -44,7 +45,7 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 bat '''
-                    powershell -Command "& $Env:TF_PATH plan"
+                    powershell -Command "& $Env:TF_FILE plan"
                 '''
             }
         }
@@ -55,7 +56,7 @@ pipeline {
             }
             steps {
                 bat '''
-                    powershell -Command "& $Env:TF_PATH apply -auto-approve"
+                    powershell -Command "& $Env:TF_FILE apply -auto-approve"
                 '''
             }
         }
