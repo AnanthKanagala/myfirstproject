@@ -4,7 +4,7 @@ pipeline {
     environment {
         TF_VERSION = '1.6.0'
         TF_PATH = 'C:\\Terraform\\terraform.exe'
-        TF_FILE = 'C:\\Terraform\\InstID.tf"
+        TF_FILE = 'C:\\Terraform\\InstID.tf'
     }
 
     stages {
