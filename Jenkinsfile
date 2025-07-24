@@ -2,29 +2,26 @@ pipeline {
   agent any
 
   environment {
-    GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-service-account') // Secret file in Jenkins
-    PATH = "C:\\Terraform\\bin;${env.PATH}"
+    TF_VAR_project_id         = "your-gcp-project-id"
+    TF_VAR_dataset_id         = "your_dataset_name"
+    TF_VAR_gcp_credentials_file = "C:\\Users\\anant\\Downloads\\crested-sentry-363807-8678ab569e98.json"  // Must be accessible to Jenkins
+    PATH = "C:\\Terraform\\bin;${env.PATH}"  // Add terraform.exe if needed
   }
 
   stages {
-    stage('Checkout') {
-      steps {
-        git url: 'https://github.com/AnanthKanagala/myfirstproject.git', branch: 'main'
-      }
-    }
-    stage('Terraform Init') {
+    stage('Init Terraform') {
       steps {
         powershell 'terraform init'
       }
     }
-    stage('Terraform Plan') {
+    stage('Plan Infrastructure') {
       steps {
-        powershell 'terraform plan -var="project_id=your-gcp-project-id" -var="dataset_id=my_dataset"'
+        powershell 'terraform plan'
       }
     }
-    stage('Terraform Apply') {
+    stage('Apply Infrastructure') {
       steps {
-        powershell 'terraform apply -var="project_id=your-gcp-project-id" -var="dataset_id=my_dataset" -auto-approve'
+        powershell 'terraform apply -auto-approve'
       }
     }
   }
