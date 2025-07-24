@@ -1,16 +1,11 @@
 provider "google" {
-  project = var.project_id
-  region  = "us-central1"
+  project     = var.project_id
+  region      = "us-central1"
+  credentials = file(var.gcp_credentials_file)
 }
 
-resource "google_bigquery_dataset" "analytics" {
-  dataset_id  = var.dataset_id
-  friendly_name = "Analytics Dataset"
-  description = "Created via Jenkins + Terraform"
-  location    = "US"
-
-  labels = {
-    managed_by = "jenkins"
-    environment = "prod"
-  }
+resource "google_bigquery_dataset" "my_dataset" {
+  dataset_id    = var.dataset_id
+  location      = "US"
+  friendly_name = "Analytics Data"
 }
