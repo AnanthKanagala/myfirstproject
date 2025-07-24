@@ -3,6 +3,7 @@ pipeline {
 
   environment {
     GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-service-account') // Secret file in Jenkins
+    PATH = "C:\\Terraform\\bin;${env.PATH}"
   }
 
   stages {
